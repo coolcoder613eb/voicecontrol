@@ -3,15 +3,13 @@
 ## Prerequisites
 - Vosk language model ([Download small English model](https://alphacephei.com/vosk/models))
 - Microphone access
-- Linux system with uinput support (for inputtino)
 
 ## Installation
 
 1. **Install dependencies**:
 ```bash
-pip install vosk pyaudio
+pip install vosk pyaudio keyboard
 ```
-2. **Install inputtino** (follow official [Python binding instructions](https://github.com/games-on-whales/inputtino/tree/stable/bindings/python#installation))
 
 2. **Non-Root Setup (Linux)**:
 ```bash
@@ -32,8 +30,47 @@ loginctl terminate-user $USER  # Relogin
 
    Extract the model to a directory (default: `vosk-model-small-en-us-0.15`)
 
-## Important Notes
-1. After configuring permissions, you should NOT need sudo to run the script
+## Configuration
+Create a `config.json` file with:
+- `model_path`: Path to Vosk model directory
+- `key_press_duration`: Duration for press-and-release actions (seconds)
+- `voice_commands`: Array of command objects with:
+  - `text`: Voice command to recognize
+  - `key`: Keyboard key to activate
+  - `action`: Key action (press/release/press_and_release)
+
+Example config.json:
+```json
+{
+    "model_path": "vosk-model-small-en-us-0.15",
+    "key_press_duration": 0.2,
+    "voice_commands": [
+        {
+            "text": "go",
+            "key": "up",
+            "action": "press"
+        },
+        {
+            "text": "no",
+            "key": "any",
+            "action": "release"
+        },
+        {
+            "text": "right",
+            "key": "right",
+            "action": "press"
+        }
+    ]
+}
+```
+
+## Usage
+```bash
+python main.py [--config path/to/config.json]
+```
+
+## Notes
+2. Use standard key names from the [keyboard module documentation](https://github.com/boppreh/keyboard#key-names)
+3. The `any` key in release commands will release all currently pressed keys
+1. After configuring permissions on Linux, you should NOT need sudo to run the script
 2. The Vosk model path in the script must match your download location
-3. New commands can be added by extending the `VOICE_COMMANDS` list
-4. `press_and_release` delay (0.2s) can be adjusted in the code

@@ -1,0 +1,41 @@
+{
+  "model_path": "vosk-model-small-en-us-0.15",
+  "key_press_duration": 0.2,
+  "voice_commands": [
+    {
+      "text": "go",
+      "key": "up",
+      "action": "press"
+    },
+    {
+      "text": "no",
+      "key": "any",
+      "action": "release"
+    },
+    {
+      "text": "right",
+      "key": "right",
+      "action": "press"
+    },
+    {
+      "text": "left",
+      "key": "left",
+      "action": "press"
+    },
+    {
+      "text": "open",
+      "key": "space",
+      "action": "press_and_release"
+    },
+    {
+      "text": "back",
+      "key": "down",
+      "action": "press"
+    },
+    {
+      "text": "bang",
+      "key": "ctrl",
+      "action": "press_and_release"
+    }
+  ]
+}
