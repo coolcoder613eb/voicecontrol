@@ -15,8 +15,18 @@ def process_text(text, voice_commands, key_press_duration):
         print("Word:", word)
         for command in voice_commands:
             if command["text"].lower() == word:
-                action = command["action"]
                 key_str = command["key"]
+                flags = command.get("flags", {})
+                action = flags.get("action", "press_and_release")
+                exclusive = flags.get("exclusive", False)
+                duration = flags.get("duration", key_press_duration)
+
+                # Handle exclusive flag
+                if exclusive and action in ["press", "press_and_release"]:
+                    print("Exclusive: Releasing all keys before pressing")
+                    for key in pressed_keys.copy():
+                        keyboard.release(key)
+                        pressed_keys.remove(key)
 
                 if key_str == "any" and action == "release":
                     print("Releasing all keys")
@@ -29,7 +39,7 @@ def process_text(text, voice_commands, key_press_duration):
 
                 if action == "press_and_release":
                     keyboard.press(key_str)
-                    time.sleep(key_press_duration)
+                    time.sleep(duration)
                     keyboard.release(key_str)
                 elif action == "press":
                     keyboard.press(key_str)

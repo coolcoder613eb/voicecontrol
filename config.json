@@ -5,37 +5,37 @@
     {
       "text": "go",
       "key": "up",
-      "action": "press"
+      "flags": { "action": "press" }
     },
     {
       "text": "no",
       "key": "any",
-      "action": "release"
+      "flags": { "action": "release" }
     },
     {
       "text": "right",
       "key": "right",
-      "action": "press"
+      "flags": { "action": "press" }
     },
     {
       "text": "left",
       "key": "left",
-      "action": "press"
+      "flags": { "action": "press" }
     },
     {
       "text": "open",
       "key": "space",
-      "action": "press_and_release"
+      "flags": {}
     },
     {
       "text": "back",
       "key": "down",
-      "action": "press"
+      "flags": { "action": "press" }
     },
     {
       "text": "bang",
       "key": "ctrl",
-      "action": "press_and_release"
+      "flags": {}
     }
   ]
 }

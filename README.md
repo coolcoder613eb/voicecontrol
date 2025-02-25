@@ -33,11 +33,14 @@ loginctl terminate-user $USER  # Relogin
 ## Configuration
 Create a `config.json` file with:
 - `model_path`: Path to Vosk model directory
-- `key_press_duration`: Duration for press-and-release actions (seconds)
+- `key_press_duration`: Global duration for press-and-release actions (seconds)
 - `voice_commands`: Array of command objects with:
   - `text`: Voice command to recognize
   - `key`: Keyboard key to activate
-  - `action`: Key action (press/release/press_and_release)
+  - `flags` (optional): Additional command parameters:
+    - `action`: Key action (press/release/press_and_release, default: press_and_release)
+    - `exclusive`: Release other keys first (true/false, default: false)
+    - `duration`: Override global press duration (seconds)
 
 Example config.json:
 ```json
@@ -48,17 +51,24 @@ Example config.json:
         {
             "text": "go",
             "key": "up",
-            "action": "press"
+            "flags": {
+                "action": "press",
+                "exclusive": true
+            }
         },
         {
             "text": "no",
             "key": "any",
-            "action": "release"
+            "flags": {
+                "action": "release"
+            }
         },
         {
-            "text": "right",
-            "key": "right",
-            "action": "press"
+            "text": "bang",
+            "key": "ctrl",
+            "flags": {
+                "duration": 0.5
+            }
         }
     ]
 }
@@ -70,7 +80,9 @@ python main.py [--config path/to/config.json]
 ```
 
 ## Notes
-2. Use standard key names from the [keyboard module documentation](https://github.com/boppreh/keyboard#key-names)
-3. The `any` key in release commands will release all currently pressed keys
-1. After configuring permissions on Linux, you should NOT need sudo to run the script
-2. The Vosk model path in the script must match your download location
+1. Use standard key names from the [keyboard module documentation](https://github.com/boppreh/keyboard#key-names)
+2. The `any` key in release commands will release all currently pressed keys
+3. After configuring permissions on Linux, you should NOT need sudo to run the script
+4. The Vosk model path in the script must match your download location
+5. Exclusive commands release all pressed keys before executing
+6. Command-specific durations override the global key_press_duration

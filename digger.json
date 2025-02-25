@@ -1,0 +1,41 @@
+{
+  "model_path": "vosk-model-small-en-us-0.15",
+  "key_press_duration": 0.2,
+  "voice_commands": [
+    {
+      "text": "up",
+      "key": "up",
+      "flags": { "action": "press", "exclusive": true }
+    },
+    {
+      "text": "down",
+      "key": "down",
+      "flags": { "action": "press", "exclusive": true }
+    },
+    {
+      "text": "right",
+      "key": "right",
+      "flags": { "action": "press", "exclusive": true }
+    },
+    {
+      "text": "left",
+      "key": "left",
+      "flags": { "action": "press", "exclusive": true }
+    },
+    {
+      "text": "stop",
+      "key": "any",
+      "action": "release"
+    },
+    {
+      "text": "bang",
+      "key": "f1",
+      "flags": {}
+    },
+    {
+      "text": "pause",
+      "key": "space",
+      "flags": {}
+    }
+  ]
+}
